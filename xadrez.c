@@ -1,50 +1,59 @@
-/*
- * Simulação dos movimentos das peças de xadrez: Torre, Bispo, Rainha e Cavalo
- * Cada peça utiliza uma estrutura de repetição diferente
- */
-
 #include <stdio.h>
 
-int main() {
-    // Movimento da Torre - 5 casas para a direita (usando for)
-    const int movimentoTorre = 5;
-    printf("Movimento da Torre:\n");
-    for (int i = 0; i < movimentoTorre; i++) {
-        printf("Direita\n");
-    }
+// Função recursiva para mover a Torre
+void moverTorre(int casas) {
+    if (casas == 0) return;
+    printf("Direita\n");
+    moverTorre(casas - 1);
+}
 
-    // Movimento do Bispo - 5 casas na diagonal para cima e direita (usando while)
-    const int movimentoBispo = 5;
-    int j = 0;
-    printf("\nMovimento do Bispo:\n");
-    while (j < movimentoBispo) {
+// Função recursiva para mover a Rainha
+void moverRainha(int casas) {
+    if (casas == 0) return;
+    printf("Esquerda\n");
+    moverRainha(casas - 1);
+}
+
+// Função recursiva para movimentar o Bispo com loops aninhados (vertical + horizontal)
+void moverBispo(int vertical, int horizontalMax) {
+    if (vertical == 0) return;
+    for (int h = 0; h < horizontalMax; h++) {
         printf("Cima Direita\n");
-        j++;
+        break; // simula movimento de 1 diagonal por chamada
     }
+    moverBispo(vertical - 1, horizontalMax);
+}
 
-    // Movimento da Rainha - 8 casas para a esquerda (usando do-while)
-    const int movimentoRainha = 8;
-    int k = 0;
-    printf("\nMovimento da Rainha:\n");
-    do {
-        printf("Esquerda\n");
-        k++;
-    } while (k < movimentoRainha);
-
-    // Movimento do Cavalo - 2 para baixo e 1 para esquerda (usando for + while aninhado)
-    const int movimentoCavaloBaixo = 2;
-    const int movimentoCavaloEsquerda = 1;
+// Movimento do Cavalo com loops aninhados complexos
+void moverCavalo() {
     printf("\nMovimento do Cavalo:\n");
 
-    for (int l = 0; l < movimentoCavaloBaixo; l++) {
-        printf("Baixo\n");
-        int m = 0;
-        while (m < 1 && l == movimentoCavaloBaixo - 1) {
-            printf("Esquerda\n");
-            m++;
+    int direcoes[3] = {1, 1, 2}; // 1 = Cima, 2 = Direita
+
+    for (int i = 0; i < 3; i++) {
+        if (direcoes[i] == 1) {
+            printf("Cima\n");
+        } else if (direcoes[i] == 2) {
+            printf("Direita\n");
         }
     }
+}
+
+int main() {
+    const int casasTorre = 5;
+    const int casasBispo = 5;
+    const int casasRainha = 8;
+
+    printf("Movimento da Torre:\n");
+    moverTorre(casasTorre);
+
+    printf("\nMovimento do Bispo:\n");
+    moverBispo(casasBispo, 1);
+
+    printf("\nMovimento da Rainha:\n");
+    moverRainha(casasRainha);
+
+    moverCavalo();
 
     return 0;
 }
-
