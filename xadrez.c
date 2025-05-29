@@ -27,7 +27,7 @@ int main() {
     }
 
     // ============================
-    // Movimento da RAINHA (DO-WHILE)
+    // Movimento da RAINHA (DO-WHILE)=
     // ============================
     printf("\nMovimento da Rainha (8 casas para a esquerda):\n");
     i = 0;
